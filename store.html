@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商店</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .top{
+            height: 80px;
+            border-bottom: 1px solid #666;
+        }
+        .top-box{
+            display: flex;
+            height: 100%;
+            position: relative;         
+        }
+        .top-account{
+            position: absolute;
+            top: 30px;
+            left: 10%;      
+        }
+        .top-account a{
+            text-decoration: none;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .top-menu{
+            position: absolute;
+            display: flex;
+            right: 10%;
+            top: 30px;
+        }
+        .search,.heart,.shopcar,.USD{
+            margin: 0px 10px;
+            color: black;
+        }
+        .wrap{
+            position: sticky;
+            height: 70px;
+            padding: 60px 0;
+            display: flex;
+            top: 0;
+            z-index: 1;
+            background-color: #fff;
+        }
+        .wrap .left{
+            position: absolute;
+            top: 70px;
+            left: 10%;
+        }
+        .wrap .right{
+            position: absolute;
+            top: 90px;
+            right: 10%;
+        }
+        .right a{
+            text-decoration: none;
+            margin: 0px 10px;
+            font-family: Arial, Helvetica, sans-serif
+        }
+        .slider-caption{
+            display: flex;
+            height: 450px;
+            position: relative;
+          
+        }
+        .pic{
+            width: 60%;
+        }
+        .pic img{
+            width: 100%;
+            height: 100%;
+        }
+        .slider-caption .txt{
+           margin: 50px;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+        }
+        .slider-caption .txt h2{
+            font-size: 70px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            
+        }
+        .slider-caption .txt h3{
+            font-size: 70px;
+            margin-bottom: 20px;
+            color: yellow;
+        }
+        .slider-caption .txt a{
+            text-decoration: none;
+            width: 100px;
+            height: 40px;
+            background-color: black;
+            color: #fff;
+            line-height: 2.5;
+            border-radius: 10px;
+            display: inline-block;
+            padding: 10px;      
+        }
+        .slider-caption .txt a:hover{
+            background-color: yellow;
+            color: black;
+            transition: .5s;
+        }
+        .wrap-border{
+            border-bottom: 1px solid #666;
+            height: 50px;
+        }
+        .list{
+            width: 1000px;     
+            display: flex;
+            margin: auto;
+        }
+        .box .item{
+            width: 250px;
+            text-align: center;
+            display: flex;
+            margin: 0 3px 3px 0;
+            padding: 5px;
+            justify-content: space-around;
+            position: relative;
+        }
+        .box .item p{
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            top: 100px;
+            font-family: Lato, sans-serif;
+        }
+        .box .item p:hover{
+            cursor: pointer;
+            color:yellow;
+        }
+        .box .item img{
+            width: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: space-around;
+            transition: .5s;
+        }
+        .box .item img:hover{
+            border: 1px solid #ccc;
+            box-shadow:2px 2px 2px 2px #ccc ;
+            transition: .5s;
+            cursor: pointer;       
+        }      
+        .box{
+            height: 180px;
+        }
+        .box2{
+            width: 1200px;
+            display: flex;
+            margin: auto;
+        }
+        .box2 .left{
+            position: relative;
+        }
+        .box2 .left .text{
+            position: absolute;
+            font-size: 20px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            bottom: 150px;
+            left: 10%;        
+        }
+        .box2 .left .text h2{
+            color: #fff;   
+            margin-bottom: 20px;    
+        }
+        .box2 .left .shop-button{
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            border-bottom: 2px solid #fff;
+        }
+        .box2 .left .shop-button:hover{
+            color: black;
+            border-bottom:1px solid black;
+            transition: .7S;
+            cursor: pointer;
+        }
+        .box2 .right{
+            position: relative;
+        }
+        .box2 .right img{
+            padding: 0 60px 25px;
+            
+        }
+        .box2 .right .text1{
+            position: absolute;
+            font-size: 20px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            top: 25%;
+            left: 10%;  
+        }
+        .box2 .right .text1 h2{
+            color: #fff;   
+            margin-bottom: 20px;  
+        }
+        .box2 .right .shop-button{
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            border-bottom: 2px solid #fff;
+        }
+        .box2 .right .shop-button:hover{
+            color: black;
+            border-bottom:1px solid black;
+            transition: .7s;
+            cursor: pointer;
+        }
+        .box2 .right .text2{
+            position: absolute;
+            font-size: 20px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            bottom: 20%;
+            left: 10%;  
+        }
+        .box2 .right .text2 h2{
+            color: #fff;   
+            margin-bottom: 20px;  
+        }
+        .box2 .right .text2 p{
+            color: #fff;  
+            margin-bottom: 20px; 
+            font-size: 15px;
+        }
+        .featured-products{
+            width: 1200px;
+            margin: auto;
+        }
+         .product{
+            display: flex;
+            margin: auto;          
+        }
+        .featured-products .product-top{
+            text-align: center;
+            position: relative;
+
+        }
+        .featured-products .product-top .item1:hover{
+            cursor: pointer;
+            background-color: yellow;
+            color: #fff;
+            transition: .5s;
+            border: none;
+
+        }
+         .featured-products .product-top .item2:hover{
+            cursor: pointer;
+            background-color: yellow;
+            color: #fff;
+            transition: .5s;
+            border: none;
+
+        }
+        .arrow{
+            display: inline-block;
+            position: absolute;
+            right: 3%;
+            display: flex;    
+            top: 5px;            
+        }
+        .arrow .item1{
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 1px solid black;
+            margin-right: 15px;
+        }
+        .arrow .item2{
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 1px solid black;
+            margin-right: 15px;
+        }
+        
+        .featured-products .product .item{
+            text-align: center;
+            margin: auto;
+            margin-top: 10px;
+        }
+        .product img{
+            background-color: #ccc;
+        }
+        .product .item p{
+            text-align: left;
+            font-size: 15px;
+            padding: 5px 5px;
+            font-family: Lato, sans-serif;
+            font-weight: bold;
+        }
+        .product .item p:hover{
+            color: yellow;
+            transition: .5s;
+            cursor: pointer;
+        }
+        .product .item .span{
+            text-align: left;
+            font-weight: bold;
+        }
+        .product .item .s{
+            text-decoration: line-through;
+            font-weight: bold;
+            opacity: .5;
+        }
+        .product .item .btn-product{
+            display: flex;
+        }
+        .product .item .btn-product .btn1{
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+        }
+        .product .item .btn-product .btn1:hover {
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .product .item .btn-product .btn2{
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+        }
+        .product .item .btn-product .btn2:hover {
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .product .item .btn-product .btn3{
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+        }
+        .product .item .btn-product .btn3:hover {
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .photo{
+            
+            width: 1200px;
+            height: 650px;
+            margin: auto;
+            margin-top: 100px;
+            position: relative;
+        }
+        .photo .grape{
+            position: absolute;
+            top: 100px;
+            right: 0px;
+            z-index:-5 ;
+        }
+        .photo .sale{
+            width: 600px;
+            height: 400px;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 0px 2px 2px 2px #ccc;
+        }
+        .photo .sale h1{
+            position: absolute;
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+            font-family: Lato, sans-serif;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            top: 80px;
+        }
+        .photo .sale p{
+            position: absolute;
+            text-align: center;
+            font-size: 90px;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            margin: auto;
+            top: 160px;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .photo .sale button{
+            background-color: yellow;
+            border: none;
+            width: 140px;
+            height: 40px;
+            border-radius:5px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+            bottom: -250px;
+        }
+        .photo .sale button:hover{
+            background-color: black;
+            color: #fff;
+            cursor: pointer;
+            transition: .5s;
+        }
+        .on-sale{
+            width: 1200px;
+            margin: auto;
+            display: flex;
+        }
+        .on-sale .left{
+            position: relative;
+        }
+        .on-sale .left .txt{
+            position: absolute;
+            bottom: 50px;
+            left: 20px;
+        }
+        .on-sale .left .txt h1{
+            color: #fff;
+            font-weight: 3px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .on-sale .left .txt button{
+            background-color: transparent;
+            margin-top: 20px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            border-bottom: 1px solid #fff;       
+        }
+        .on-sale .left .txt button:hover{
+            color: black;
+            border-bottom:1px solid black;
+            cursor: pointer;
+            transition: .5s;
+        }
+        .on-sale .right{
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-between;
+            margin: 0 0 0 30px;
+        }
+        .on-sale .right .item-btn{
+            display: flex;     
+            margin:5px 0 0 10px;   
+        }
+        .on-sale .right .item-btn .btn1{
+            border:1px solid black;
+            margin: 0 3px;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .on-sale .right .item-btn .btn1:hover{
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .on-sale .right .item-btn .btn2:hover{
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .on-sale .right .item-btn .btn3:hover{
+            background-color: yellow;
+            border: none;
+            transition: .5S;
+            cursor: pointer;
+        }
+        .on-sale .right .item-btn .btn2{
+            border:1px solid black;
+            margin: 0 3px;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .on-sale .right .item-btn .btn3{
+            
+            border:1px solid black;
+            margin: 0 3px;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .on-sale .right .item-btn .btn1-u{
+            opacity: .3;
+            border:1px solid black;
+            margin: 0 3px;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .on-sale .right .item img{
+            background-color: #ccc;
+            margin: 10px;
+        }
+        .on-sale .right .item p{
+            margin:0 0 0 20px; 
+        }
+        .on-sale .right h1{
+            width: 600px;
+            text-align: center;
+            font-weight: bold;
+            margin: 0 30px;
+        }
+        .Featured-Posts{
+            width: 1200px;
+            margin: auto;       
+        }
+        .Featured-Posts .h3 h3{
+            margin: 100px 0px 50px ;
+            text-align: center;
+            font-size: 25px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .Featured-Posts .posts-top{
+            display: flex;
+        }
+        .Featured-Posts .posts-top .posts{
+            width: 1200px;
+        }
+        .Featured-Posts .posts-top .posts h2{
+            font-size: 17px;
+            width: 350px;
+            margin: 10px 0 10px 0;
+            text-align: left;
+        }
+        .Featured-Posts .posts-top .posts h2:hover{
+            color: yellow;
+            cursor: pointer;
+            transition: .5s;
+
+        }
+        .Featured-Posts .posts-top .posts h3{
+            font-size: 15px;
+            margin: 10px 0 10px 0;
+            opacity: .7;
+        }
+        .Featured-Posts .posts-top .posts p{
+            text-align: left;
+            width: 350px;
+            opacity: .5;
+            margin: 0 0 50px 0;
+        }
+        .footer{
+            width: 100%;
+            margin: auto;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            justify-content: space-around;
+        }
+        .footer .info{
+            width: 250px;
+            padding: 50px 0 0 ;
+            font-family: Lato, sans-serif;
+        }     
+        .footer .info h1{
+            font-size: 20px;
+        }  
+        .footer .info li{
+            padding: 10px 0 0 0;
+            text-align: center;
+            font-size: 15px;
+            margin: 10px 0 30px 0;
+            text-align: left;
+        }
+        .footer .info li:hover{
+           color: yellow;
+           cursor: pointer;
+           transition: .7s;
+        }
+        .footer-end{
+            font-family: Lato, sans-serif;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <div class="top-box">
+            <div class="top-account">
+                 <a href="#">My account</a>
+            </div>
+             <div class="top-menu">
+                <div class="search">放大鏡</div>
+                <div class="heart">愛心</div>
+                <div class="shopcar">購物車</div>
+                <div class="USD">USD</div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="left">
+            <img src="store/ 1.png" alt="">
+            <p>HEALTLY FOOD</p>
+        </div>
+        <div class="right">
+            <nav>
+                <a href="#">HOME</a>
+                <a href="#">ABOUT US</a>
+                <a href="#">COLLECTIONS</a>
+                <a href="#">BLOG</a>
+                <a href="#">SALE</a>
+                <a href="#">CONTACT US</a>
+            </nav>
+        </div>
+    </div>
+    <div class="slider-caption">
+        <div class="pic">
+            <img src="store/asset 14.png" alt=""></div>
+        <div class="txt">
+            <h2>Fresh and<br>Delicious</h2>
+            <h3>All Year<br>Around!</h3>
+            <a href="#">READ MORE</a>
+        </div>
+    </div>
+
+    <div class="wrap-border"></div>
+    <div class="box">
+        <div class="list">
+            <div class="item">
+                <img src="store/asset 50.png" alt="">
+                <p>Fresh Fruits</p>        
+            </div>
+            <div class="item">
+                <img src="store/asset 51.png" alt="">
+                <p>Veggies</p>
+            </div>
+            <div class="item">
+                <img src="store/asset 52.png" alt="">
+                <p>Fish</p>
+            </div>
+            <div class="item">
+                <img src="store/asset 53.png" alt="">
+                <p>Nuts & Seeds</p>
+            </div>
+            <div class="item">
+                <img src="store/asset 54.png" alt="">
+                <p>Bread</p>
+            </div>
+            <div class="item">
+                <img src="store/asset 55.png" alt="">
+                <p>Dairy</p>
+            </div>
+        </div>
+    </div>
+    <div class="box2">
+        <div class="left">
+            <img src="store/asset 56.png" alt="">
+            <div class="text">
+                <h2>Best Quality Products</h2>
+                <button class="shop-button">
+                    Shop Now
+                </button>
+            </div>
+            
+        </div>
+        <div class="right">
+            <img src="store/asset 57.png" alt="">
+            <div class="text1">
+                <h2>Hot Deals:<br>CRAZY PRICE $2.99</h2>
+                <button class="shop-button">
+                    Shop Now
+                </button>
+            </div>
+            <img src="store/asset 58.png" alt="">
+            <div class="text2">
+                <h2>HURRY UP!</h2>
+                <p>Don't miss your chance to be the first!</p>
+                <button class="shop-button">
+                    Shop Now
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="featured-products">
+        <div class="product-top">
+            <h2>Featred Products</h2>           
+            <div class="arrow">
+                <div class="item1">＜</div>
+                <div class="item2">＞</div>
+            </div>
+            <div class="product">
+                <div class="item">
+                    <img src="store/asset 9.png" alt="">      
+                        <p>P28 Foods Foremulated...</p>
+                         <p class="span"><span class="s">$26.00 </span>$20.00</p>          
+                    <div class="btn-product">
+                        <div class="btn1">ADD TO CART</div>
+                        <div class="btn2">眼睛</div>
+                        <div class="btn3">愛心</div>   
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="store/asset 10.png" alt="">              
+                         <p>P28 Foods Foremulated...</p>
+                       <p class="span">
+                           <span>$29.00-$36.00</span>        
+                       </p>                       
+                    <div class="btn-product">
+                        <div class="btn1">CHOSE VARIANT</div>
+                        <div class="btn2">眼睛</div>
+                        <div class="btn3">愛心</div>   
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="store/asset 11.png" alt="">                
+                        <p>P28 Foods Foremulated...</p>
+                        
+                        <p class="sapn">
+                            <span>$12.00-$30.00</span> 
+                        </p>     
+                    <div class="btn-product">
+                        <div class="btn1">CHOSE VARIANT</div>
+                        <div class="btn2">眼睛</div>
+                        <div class="btn3">愛心</div>   
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="store/asset 12.png" alt="">
+                        <p>P28 Foods Foremulated...</p>
+                        <p class="sapn">
+                            <span class="s">$33.00</span> $22.00                   
+                        </p>    
+                    <div class="btn-product">
+                        <div class="btn1">ADD TO CART</div>
+                        <div class="btn2">眼睛</div>
+                        <div class="btn3">愛心</div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="photo">
+        <div class="sale">
+            <h1>20% OFF</h1>
+            <p>Fresh Berries</p>
+            <button>SHOP NOW</button>
+        </div>
+        <div class="grape">
+            <img src="store/asset 40.png" alt="">
+        </div>
+    </div>
+    <div class="on-sale">
+        <div class="left">
+            <img src="store/asset 59.png" alt="">
+            <div class="txt">
+                <h1>Looking for something<br>
+                    special?</h1>
+                    <button>SHOP NOW</button>
+            </div>
+        </div>
+        <div class="right">
+            <h1>On Sale</h1>
+            <div class="item">
+                <img src="store/asset 26.png" alt="">
+                <p>P28 Foods Formulated...</p>
+                <p>$29.00 – $36.00</p>
+                <div class="item-btn">
+                    <div class="btn1">CHOSE VARIANT</div>
+                    <div class="btn2">眼睛</div>
+                    <div class="btn3">愛心</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="store/asset 43.png" alt="">
+                <p>Nabisco Mini Nilla W...</p>
+                <p>$30.00</p>
+                <div class="item-btn">
+                    <div class="btn1">ADD TO CART</div>
+                    <div class="btn2">眼睛</div>
+                    <div class="btn3">愛心</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="store/asset 28.png" alt="">
+                <p>KIND Nuts & Spices, ...</p>
+                <p>$12.00 – $30.00</p>
+                <div class="item-btn">
+                    <div class="btn1">CHOSE VARIANT</div>
+                    <div class="btn2">眼睛</div>
+                    <div class="btn3">愛心</div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="store/asset 47.png" alt="">
+                <p>Kashi Cereal Bar, Ri...</p>
+                <p>$23.00</p>
+                <div class="item-btn">
+                    <div class="btn1-u">UNAVAILABLE</div>
+                    <div class="btn2">眼睛</div>
+                    <div class="btn3">愛心</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Featured-Posts">
+        <div class="h3"><h3>Featured-Posts</h3></div>
+        <div class="posts-top">
+            <div class="posts">
+            <img src="store/asset 60.png" alt="">
+            <h3>29 January</h3>
+            <h2>12 Heavenly Fruits and Honey</h2>
+            <p>Caffeine and sugar may give you an energy spike, but the crash that follows will leave you feeling even more tired than before. However, great...</p>
+        </div>
+        <div class="posts">
+            <img src="store/asset 61.png" alt="">
+            <h3>29 January</h3>
+            <h2>The Great Start of Your Weight</h2>
+            <p>Kids need energy for sports and play, so it’s important that they’re consuming a nutrient-dense snack about an hour before their activity that contains carbohydrates....</p>
+        </div>
+        <div class="posts">
+            <img src="store/asset 62.png" alt="">  
+            <h3>29 January</h3>
+            <h2>The Products that Help You Boost the Energy</h2>
+            <p>Hello, my dears! My name is mary and here, in my blog, I want to share with you my findings and useful thoughts about making...</p> 
+        </div>
+        </div>
+        
+    </div>
+    <div class="footer">
+        <div class="info">
+            <div calss="title">
+                <h1>Information</h1>          
+            </div>
+            <ul>
+                <li>Home</li>
+                <li>Services</li>
+                <li>Blog</li>
+                <li>About Us</li>
+                <li>Contact Us</li>
+            </ul>
+    </div>
+        <div class="info">
+            <div calss="title">
+                <h1>My Account</h1>          
+            </div>
+            <ul>
+                <li>My Account</li>
+                <li>Order History</li>
+                <li>Addresses</li>
+                <li>Wishlist</li>
+            </ul>
+    </div>
+        <div class="info">
+            <div calss="title">
+                <h1>Our Shop</h1>          
+            </div>
+            <ul>
+                <li>Address<br>
+                    4578 Marmora St, San Francisco D04 89GR</li>
+                <li>Phone<br>
+                    1-800-1234-567</li>     
+                </ul>
+    </div>
+        <div class="info">
+            <div calss="title">
+                <h1>Newsletter</h1>          
+            </div>
+            <ul>
+                <li>Join our mailing list</li>
+                <li>Enter your email</li>
+            </ul>
+    </div>
+    </div>
+    <div class="footer-end">
+        <p>©Healtly Food . Powered by Shopify</p>
+    </div>
+    </body>
+</html>
