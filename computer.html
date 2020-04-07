@@ -1,0 +1,232 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>計算機</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        
+        .bc {
+            background-color: #fff;
+            width: 400px;
+            border: 1.5px solid #f00;
+            margin-top: 30px;
+            margin: auto;
+            border-radius: 4px;
+        }
+        
+        .text {
+            width: 300px;
+            margin-top: 20px;
+        }
+        
+        .button {
+            background-color: #fff;
+            width: 50px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+        }
+        
+        .button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="computer">
+        <div class="bc">
+            <div class="container">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-12" style="margin-top: 12px; border-radius: 6px;"><input type="text" class="calculator-input mousetrap form-control input-lg" placeholder="0" id="box"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="button" value="7" class="button" onclick="numberBtn('7')">
+                            <input type="button" value="8" class="button" onclick="numberBtn('8')">
+                            <input type="button" value="9" class="button" onclick="numberBtn('9')">
+                            <input type="button" value="+" class="button" onclick="calculated('+')">
+                            <input type="button" value="C" class="button" onclick="delBtn()">
+                            <input type="button" value="1/x" class="button" onclick="fraction()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="button" value="4" class="button" onclick="numberBtn('4')">
+                            <input type="button" value="5" class="button" onclick="numberBtn('5')">
+                            <input type="button" value="6" class="button" onclick="numberBtn('6')">
+                            <input type="button" value="-" class="button" onclick="calculated('-')">
+                            <input type="button" value="x!" class="button" onclick="marvel()">
+                            <input type="button" value="√" class="button" onclick="sqrt()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="button" value="1" class="button" onclick="numberBtn('1')">
+                            <input type="button" value="2" class="button" onclick="numberBtn('2')">
+                            <input type="button" value="3" class="button" onclick="numberBtn('3')">
+                            <input type="button" value="*" class="button" onclick="calculated('*')">
+                            <input type="button" value="sin" class="button" onclick="triangle('sin')">
+                            <input type="button" value="cos" class="button" onclick="triangle('cos')">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="button" value="0" class="button" onclick="numberBtn('0')">
+                            <input type="button" value="." class="button" onclick="numberBtn('.')">
+                            <input type="button" value="π" class="button" onclick="calculated('π')">
+                            <input type="button" value="/" class="button" onclick="calculated('/')">
+                            <input type="button" value="ln" class="button" onclick="log()">
+                            <input type="button" value="tan" class="button" onclick="triangle('tan')">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="margin-bottom: 12px;">
+                            <input type="button" value="x^y" class="button" onclick="calculated('x^y')">
+                            <input type="button" value="e^x" class="button" onclick="exp()">
+                            <input type="button" value="←" class="button" onclick="del()" style="width: 100px;">
+                            <input type="button" value="=" class="button" onclick="equal()" style="width: 100px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            var fNum = 0;
+            var fum = 0;
+            var judgment = '';
+            var count = 0;
+
+            function numberBtn(str) {
+                document.getElementById('box').value += str;
+            }
+
+            function delBtn() {
+                document.getElementById('box').value = '';
+            }
+            var num = 0;
+
+            function calculated(str) {
+                fNum = document.getElementById('box').value;
+                count = count + 1;
+                if (count == 2) {
+                    fNum = num;
+                } else if (count == 1) {
+                    num = fNum;
+                }
+                judgment = str;
+                delBtn();
+            }
+
+            function marvel() {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                var sum = 1;
+                for (let i = 1; i <= Number(fNum); i++) {
+                    sum = sum * i;
+                    document.getElementById('box').value = `${sum}`;
+                }
+            }
+
+            function triangle(str) {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                switch (str) {
+                    case 'sin':
+                        document.getElementById('box').value = `${Math.sin(Number(fNum))}`;
+                        break;
+                    case 'cos':
+                        document.getElementById('box').value = `${Math.cos(Number(fNum))}`;
+                        break;
+                    case 'tan':
+                        document.getElementById('box').value = `${Math.tan(Number(fNum))}`;
+                        break;
+                    default:
+                        console.log('Sorry, we are out of ' + expr + '.');
+                }
+            }
+
+            function fraction() {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                document.getElementById('box').value = `${1/Number(fNum)}`;
+            }
+
+            function sqrt() {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                document.getElementById('box').value = `${Math.sqrt(Number(fNum))}`;
+            }
+
+            function log() {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                document.getElementById('box').value = `${Math.log(Number(fNum))}`;
+            }
+
+            function exp() {
+                fNum = document.getElementById('box').value;
+                count = 0;
+                document.getElementById('box').value = `${Math.exp(Number(fNum))}`;
+            }
+
+            function del() {
+                count = 0;
+                fNum = document.getElementById('box').value;
+                toarray = fNum.split('');
+                toarray.pop();
+                fNum = toarray.join('');
+                document.getElementById('box').value = fNum;
+            }
+
+            function equal() {
+                fum = document.getElementById('box').value;
+                count = 0;
+                switch (judgment) {
+                    case '+':
+                        document.getElementById('box').value = `${Number(fNum)+Number(fum)}`;
+                        break;
+                    case '-':
+                        document.getElementById('box').value = `${Number(fNum)-Number(fum)}`;
+                        break;
+                    case '*':
+                        document.getElementById('box').value = `${Number(fNum)*Number(fum)}`;
+                        break;
+                    case '/':
+                        document.getElementById('box').value = `${Number(fNum)/Number(fum)}`;
+                        break;
+                    case 'x^y':
+                        document.getElementById('box').value = `${Math.pow(Number(fNum),Number(fum))}`;
+                        break;
+                    default:
+                        console.log('Sorry, we are out of ' + expr + '.');
+                }
+            }
+        </script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
