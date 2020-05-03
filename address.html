@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="MYDATA.js"></script>
+</head>
+
+<body>
+    <h1>Taiwan</h1>
+    <div id="tw"></div>
+    <template id="templateTitle">
+        <tr>
+            <th>縣市</th>
+            <th>區域</th>
+            <th>區碼</th>
+
+        </tr>
+    </template>
+    <template id="templateRow">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+    </template>
+
+    <script>
+        // let body = document.querySelector('body');
+        let body = $g('body');
+        // let table = document.createElement('table');
+        let table = $c('table');
+        table.setAttribute("border", "1");
+        let thead = $c('thead');
+        let tbody = $c('tbody');
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        body.appendChild(table);
+
+        let ZipCode = [];
+        window.onload = function () {
+            let xhr = new XMLHttpRequest;
+            xhr.onload = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+
+                    zipcodeArray = JSON.parse(this.responseText);
+
+                    zipcodeArray.forEach((item) => {
+                        // ZipCode.push({ City: item['CityName'], disstricts: [] });
+                        item.AreaList.forEach((area) => {
+                            ZipCode.push({
+                                City: item['CityName'],
+                                Districts: [{ AreaName: area['AreaName'], ZipCode: area['ZipCode'] }]
+                            })
+                        })
+                    })
+                    addThead();
+                    ZipCode.forEach((item) => {
+                        addTbody(Object.values(item));
+                    })
+                } else {
+                    msg.textContent = '發生錯誤，HTTP response代碼：' + xhr.status;
+                }
+                
+            }
+            xhr.open("GET", "https://raw.githubusercontent.com/Lin-Dai-Ying/Test/master/templet/TaiawnAdd.json");
+            xhr.send();
+        }
+
+        function addThead() {
+            let templateTitle = $g('#templateTitle');
+            let cloneContent =
+                templateTitle.content.cloneNode(true);
+            thead.appendChild(cloneContent);
+        }
+        function addTbody(rowArray) {
+            let templateRow = $g('#templateRow');
+            let cloneContent =
+                templateRow.content.cloneNode(true);
+            let tds = cloneContent.querySelectorAll('td');
+
+            rowArray.forEach(function (item, index) {
+                if (index == 1) {
+                    item.forEach(function (content) {
+                        tds[1].textContent = content.AreaName;
+                        tds[2].textContent = content.ZipCode;
+                    })
+
+                }
+                else {
+                    tds[0].textContent = rowArray[0];
+                }
+            })
+            tbody.appendChild(cloneContent);
+        }
+    </script>
+
+</body>
+
+</html>
